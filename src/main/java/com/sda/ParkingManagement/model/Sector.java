@@ -19,6 +19,14 @@ public class Sector {
     @OneToMany(mappedBy = "sector")
     private List<ParkingSpace> parkingSpaces;
 
+    public Sector(@NotNull(message = "Sector name is missing") String name, List<ParkingSpace> parkingSpaces) {
+        this.name = name;
+        this.parkingSpaces = parkingSpaces;
+    }
+
+    public Sector() {
+    }
+
     public Long getId() {
         return id;
     }

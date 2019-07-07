@@ -19,6 +19,15 @@ public class ParkingSpace {
     @JoinColumn(name = "sector_id")
     private Sector sector;
 
+    public ParkingSpace(@NotNull(message = "Parking space number is missing") Integer number, Sector sector) {
+        this.isFree = true;
+        this.number = number;
+        this.sector = sector;
+    }
+
+    public ParkingSpace() {
+    }
+
     public Long getId() {
         return id;
     }
