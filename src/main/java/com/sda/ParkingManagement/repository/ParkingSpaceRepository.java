@@ -11,4 +11,6 @@ public interface ParkingSpaceRepository extends JpaRepository<ParkingSpace, Long
     List<ParkingSpace> findAll();
 
     ParkingSpace findBySectorAndNumber(String sectorName, Integer number);
+
+
 }

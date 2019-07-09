@@ -1,6 +1,7 @@
 package com.sda.ParkingManagement.model;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.sql.Timestamp;
@@ -9,6 +10,7 @@ import java.sql.Timestamp;
 @Table(name = "subscriptions")
 public class Subscription {
     @Id
+    @GeneratedValue
     private Long id;
 
     private String code;

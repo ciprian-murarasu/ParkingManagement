@@ -7,6 +7,7 @@ import javax.validation.constraints.NotNull;
 @Table(name = "parking_spaces")
 public class ParkingSpace {
     @Id
+    @GeneratedValue
     private Long id;
 
     @NotNull(message = "Parking space status is missing")

@@ -11,7 +11,7 @@ import java.util.List;
 @Controller
 public class MainPageController {
 
-    private static List<ParkingSpace> parkingSpaces = new ArrayList<ParkingSpace>();
+    private static List<ParkingSpace> parkingSpaces = new ArrayList<>();
 
     @GetMapping(value = {"/", "/index"})
     public String index(Model model) {

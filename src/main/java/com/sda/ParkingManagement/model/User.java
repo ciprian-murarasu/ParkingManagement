@@ -1,6 +1,7 @@
 package com.sda.ParkingManagement.model;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
@@ -9,6 +10,7 @@ import javax.validation.constraints.Size;
 @Table(name = "users")
 public class User {
     @Id
+    @GeneratedValue
     private Long id;
 
     @Size(min = 5, message = "Username must have min 5 characters")

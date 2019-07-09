@@ -3,6 +3,7 @@ package com.sda.ParkingManagement.model;
 import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.sql.Timestamp;
@@ -11,6 +12,7 @@ import java.sql.Timestamp;
 @Table(name = "tickets")
 public class Ticket {
     @Id
+    @GeneratedValue
     Long id;
 
     private String code;
