@@ -12,14 +12,14 @@
 <div>
     <p>Enter the parking</p>
     <form>
-        <label>Enter the code: <input type="text"/></label><br>
+        <label>Enter the code: <input type="text"/></label>
         <input type="submit" value="Access"/>
     </form>
 </div>
 <div><p>Exit the parking</p></div>
 <div><p>Pay bill</p></div>
 <div><p>Buy subscription</p></div>
-<a href="${pageContext.request.contextPath}/personList">Person List</a>
+<%--<a href="${pageContext.request.contextPath}/personList">Person List</a>--%>
 
 </body>
 
