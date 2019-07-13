@@ -27,9 +27,15 @@
         <input type="submit" value="Exit"/>
     </form>
 </div>
+<br>
 <div>
     <h3>Pay bill</h3>
-    <form action="">
+    <form action="${pageContext.request.contextPath}/payBill" method="post">
+        <label>Enter the code:
+            <p><input name="code" type="text"/></label></p>
+        <input type="submit" value="Calculate fee"/>
+        <p> <label>You have to pay:</label> </p>
+            <p><c:out value="${ticketCode}"/></p>
         <input type="submit" value="Pay ticket"/>
     </form>
 </div>
