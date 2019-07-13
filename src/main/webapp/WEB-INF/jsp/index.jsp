@@ -1,3 +1,5 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -12,9 +14,11 @@
 <div>
     <h3>Enter the parking</h3>
     <form action="${pageContext.request.contextPath}/tickets" method="post">
-        <label>Enter the code: <input type="text"/></label>
+        <label>Enter the code: <input name="subscriptionCode" type="text"/></label>
         <input type="submit" value="Access"/>
     </form>
+
+    <c:out value="${ticketCode}"/>
 </div>
 <div>
     <h3>Exit the parking</h3>

@@ -2,10 +2,8 @@ package com.sda.ParkingManagement.model;
 
 import org.hibernate.validator.constraints.Range;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 
 @Entity
@@ -21,6 +19,7 @@ public class Ticket {
     private
     Integer payedAmount;
 
+    @NotNull
     private Timestamp enterDate;
 
     private Timestamp exitDate;

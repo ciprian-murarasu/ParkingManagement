@@ -1,9 +1,11 @@
 package com.sda.ParkingManagement.controller;
 
+import com.sda.ParkingManagement.DTO.TicketDto;
 import com.sda.ParkingManagement.model.Ticket;
 import com.sda.ParkingManagement.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,14 +21,11 @@ public class TicketController {
     }
 
     @PostMapping()
-    Ticket create() {
-        Ticket ticket = new Ticket();
-        ticket.setCode(generateCode());
-        return ticketService.create(ticket);
-    }
+    public String create(Model model) {
+        TicketDto ticketDto = ticketService.create();
+        model.addAttribute("ticketCode", ticketDto.getCode());
 
-    private String generateCode() {
-        return "T" + (long) (Math.floor(Math.random() * 9_000_000_000L) + 1_000_000_000);
+        return "index";
     }
 
     @GetMapping()
