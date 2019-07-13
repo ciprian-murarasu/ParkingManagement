@@ -1,6 +1,6 @@
 package com.sda.ParkingManagement.service;
 
-import com.sda.ParkingManagement.DTO.TicketDto;
+import com.sda.ParkingManagement.dto.TicketDto;
 import com.sda.ParkingManagement.model.Ticket;
 import com.sda.ParkingManagement.repository.TicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +47,6 @@ public class TicketService {
     }
 
     private String generateCode() {
-        return "T" + (long) (Math.floor(Math.random() * 9_000_000_000L) + 1_000_000_000);
+        return "T" + (long) (Math.floor(Math.random() * 900_000_000L) + 100_000_000);
     }
 }

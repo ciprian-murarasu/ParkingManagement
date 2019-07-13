@@ -1,4 +1,4 @@
-package com.sda.ParkingManagement.DTO;
+package com.sda.ParkingManagement.dto;
 
 public class TicketDto {
 
