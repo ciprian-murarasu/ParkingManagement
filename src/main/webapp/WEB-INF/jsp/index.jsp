@@ -13,12 +13,13 @@
 
 <div>
     <h3>Enter the parking</h3>
-    <form action="${pageContext.request.contextPath}/tickets" method="post">
-        <label>Enter the code: <input name="subscriptionCode" type="text"/></label>
+    <form action="${pageContext.request.contextPath}/tickets/access" method="post">
+        <label>Enter the code: <input name="code" type="text"/></label>
         <input type="submit" value="Access"/>
     </form>
-
-    <c:out value="${ticketCode}"/>
+    <p>
+        <c:out value="${ticketCode}"/>
+    </p>
 </div>
 <div>
     <h3>Exit the parking</h3>
