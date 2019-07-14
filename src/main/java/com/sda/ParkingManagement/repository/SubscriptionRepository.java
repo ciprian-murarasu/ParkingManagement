@@ -1,7 +1,6 @@
 package com.sda.ParkingManagement.repository;
 
 import com.sda.ParkingManagement.model.Subscription;
-import com.sda.ParkingManagement.model.Ticket;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

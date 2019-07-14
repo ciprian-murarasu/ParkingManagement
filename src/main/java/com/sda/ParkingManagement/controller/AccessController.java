@@ -40,7 +40,7 @@ public class AccessController {
         } else {
             Subscription subscription = subscriptionService.getByCode(code);
             if (subscription == null) {
-                model.addAttribute("accessMessage", "X subscription. Access denied");
+                model.addAttribute("accessMessage", "Invalid subscription. Access denied");
             } else {
                 Timestamp currentDate = new Timestamp(new Date().getTime());
                 if (subscription.getEndDate().compareTo(currentDate) < 0) {

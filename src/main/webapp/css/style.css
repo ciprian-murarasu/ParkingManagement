@@ -1,5 +1,9 @@
 div {
-    width: 20%;
+    width: 48%;
     height: 25%;
     display: inline-block;
+}
+
+body div p {
+    height: 18px;
 }
