@@ -35,6 +35,7 @@ public class AccessController {
         String code = accessDto.getCode();
         if (StringUtils.isEmpty(code)) {
             TicketDto ticketDto = ticketService.create();
+//            model.addAttribute("generatedCode", true);
             model.addAttribute("ticketCode", ticketDto.getCode());
             model.addAttribute("accessMessage", "Access granted. Welcome!");
         } else {

@@ -30,6 +30,8 @@ public class BillController {
         else {
             
         }
+
+        model.addAttribute("calculated", true);
         return "index";
     }
     

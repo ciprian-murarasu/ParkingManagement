@@ -18,36 +18,40 @@
 <div>
     <h3>Enter the parking</h3>
     <form action="${pageContext.request.contextPath}/access" method="post">
-        <label>Enter the code: <input type="text" name="code" size="7" maxlength="10"/></label>
+        <label>Enter the code: <input type="text" name="code" size="8" maxlength="10"/></label>
         <input type="submit" value="Access"/>
     </form>
+    <c:if test="${not empty ticketCode}">
     <p><c:out value="${ticketCode}"/></p>
+    </c:if>
     <p><c:out value="${accessMessage}"/></p>
 </div>
 <div>
     <h3>Exit the parking</h3>
     <form action="${pageContext.request.contextPath}/exit" method="post">
-        <label>Enter the code: <input type="text" size="7" maxlength="10"/></label>
+        <label>Enter the code: <input type="text" size="8" maxlength="10"/></label>
         <input type="submit" value="Exit"/>
     </form>
 </div>
 <br>
 <div>
     <h3>Pay bill</h3>
-    <form action="${pageContext.request.contextPath}/tickets" method="post">
-        <label>Enter the code: <input type="text" size="7" maxlength="10"/></label>
+    <form action="${pageContext.request.contextPath}/payBill" method="post">
+        <label>Enter the code: <input type="text" size="8" maxlength="10"/></label>
         <button>Calculate fee</button>
-        <p><c:out value="You have to pay: ${ticketCode}"/></p>
-        <input type="submit" value="Pay ticket"/>
+        <c:if test="${calculated}">
+            <p><c:out value="You have to pay: ${ticketCode}"/></p>
+            <input type="submit" value="Pay ticket"/>
+        </c:if>
     </form>
 </div>
 <div>
     <h3>Buy subscription</h3>
     <form action="${pageContext.request.contextPath}/subscriptions" method="post">
         <label for="from">Start date</label>
-        <input type="text" size="7" maxlength="10" id="from" name="from">
+        <input type="text" size="8" maxlength="10" id="from" name="from">
         <label for="to">End date</label>
-        <input type="text" size="7" maxlength="10" id="to" name="to">
+        <input type="text" size="8" maxlength="10" id="to" name="to">
         <input type="submit" value="Get subscription"/>
     </form>
 </div>
