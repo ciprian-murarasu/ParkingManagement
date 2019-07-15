@@ -22,7 +22,7 @@
         <input type="submit" value="Access"/>
     </form>
     <c:if test="${not empty ticketCode}">
-    <p><c:out value="${ticketCode}"/></p>
+        <p><c:out value="${ticketCode}"/></p>
     </c:if>
     <p><c:out value="${accessMessage}"/></p>
 </div>
@@ -36,15 +36,18 @@
 <br>
 <div>
     <h3>Pay bill</h3>
-    <form action="${pageContext.request.contextPath}/tickets" method="post">
-        <label>Enter the code: <input name="code" type="text" size="8" maxlength="10"/></label>
+    <form action="${pageContext.request.contextPath}/tickets/pay" method="post">
+        <label>Enter the code: <input type="text" name="code" size="8" maxlength="10" value="<c:out value='${code}'/>"/></label>
         <button>Calculate fee</button>
         <c:if test="${calculated}">
             <p><c:out value="You have to pay: ${price}"/></p>
-            <input type="submit" value="Pay ticket"/>
+            <input type="submit" name="pay" value="Pay ticket"/>
+            <c:if test="${payed}">
+                <p><c:out value="${payMessage}"/></p>
+            </c:if>
         </c:if>
         <c:if test="${not calculated}">
-            <p><c:out value="${payMessage}"/></p>
+            <p><c:out value="${calculateMessage}"/></p>
         </c:if>
     </form>
 </div>

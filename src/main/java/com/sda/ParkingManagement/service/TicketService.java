@@ -64,4 +64,11 @@ public class TicketService {
         }
         return price;
     }
+
+    public void payTicket(String code) {
+        Ticket ticket = getByCode(code);
+        ticket.setPayDate(new Timestamp(new Date().getTime()));
+        ticket.setPayedAmount(calculatePrice(code));
+        ticketRepository.save(ticket);
+    }
 }
