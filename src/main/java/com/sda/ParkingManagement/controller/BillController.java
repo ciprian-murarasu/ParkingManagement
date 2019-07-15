@@ -11,28 +11,30 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping(value = "/payBill")
+@RequestMapping(value = "/tickets")
 public class BillController {
-
     private TicketService ticketService;
 
     @Autowired
-    public BillController(TicketService ticketService){
+    public BillController(TicketService ticketService) {
         this.ticketService = ticketService;
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public String payBill(TicketDto ticketDto, Model model){
-        String billCode = ticketDto.getCode();
-        if(StringUtils.isEmpty(billCode)){
-            model.addAttribute("billMessage","Please enter a Ticket code");
+    public String payTicket(TicketDto ticketDto, Model model) {
+        String code = ticketDto.getCode();
+        if (StringUtils.isEmpty(code)) {
+            model.addAttribute("payMessage", "Please enter a ticket code");
+        } else {
+            try {
+                Integer price = ticketService.calculatePrice(code);
+                model.addAttribute("calculated", true);
+                model.addAttribute("price", price);
+            } catch (Exception e) {
+                model.addAttribute("payMessage", "Invalid code. Try again");
+            }
         }
-        else {
-            
-        }
-
-        model.addAttribute("calculated", true);
         return "index";
     }
-    
+
 }

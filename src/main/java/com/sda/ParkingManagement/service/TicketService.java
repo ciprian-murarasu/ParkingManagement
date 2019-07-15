@@ -23,6 +23,7 @@ public class TicketService {
         Ticket ticket = new Ticket();
         ticket.setCode(generateCode());
         ticket.setEnterDate(new Timestamp(new Date().getTime()));
+        ticket.setPayedAmount(0);
         ticketRepository.save(ticket);
 
         TicketDto ticketDto = new TicketDto();
@@ -48,5 +49,19 @@ public class TicketService {
 
     private String generateCode() {
         return "T" + (long) (Math.floor(Math.random() * 900_000_000L) + 100_000_000);
+    }
+
+    public Integer calculatePrice(String code) {
+        Ticket ticket = getByCode(code);
+        Timestamp currentDate = new Timestamp(new Date().getTime());
+        int durationInMinutes = (int) (currentDate.getTime() - ticket.getEnterDate().getTime()) / (1000 * 60);
+        int hours = durationInMinutes / 60;
+        int minutes = durationInMinutes % 60;
+        Integer pricePerHour = 2;
+        Integer price = hours * pricePerHour;
+        if (minutes > 15) {
+            price += pricePerHour;
+        }
+        return price;
     }
 }

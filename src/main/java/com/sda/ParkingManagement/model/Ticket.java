@@ -5,6 +5,7 @@ import org.hibernate.validator.constraints.Range;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
+import java.util.Date;
 
 @Entity
 @Table(name = "tickets")
@@ -13,11 +14,11 @@ public class Ticket {
     @GeneratedValue
     Long id;
 
+    @NotNull
     private String code;
 
     @Range(min = 0, message = "Invalid payed amount")
-    private
-    Integer payedAmount;
+    private Integer payedAmount;
 
     @NotNull
     private Timestamp enterDate;

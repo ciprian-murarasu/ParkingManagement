@@ -36,12 +36,15 @@
 <br>
 <div>
     <h3>Pay bill</h3>
-    <form action="${pageContext.request.contextPath}/payBill" method="post">
-        <label>Enter the code: <input type="text" size="8" maxlength="10"/></label>
+    <form action="${pageContext.request.contextPath}/tickets" method="post">
+        <label>Enter the code: <input name="code" type="text" size="8" maxlength="10"/></label>
         <button>Calculate fee</button>
         <c:if test="${calculated}">
-            <p><c:out value="You have to pay: ${ticketCode}"/></p>
+            <p><c:out value="You have to pay: ${price}"/></p>
             <input type="submit" value="Pay ticket"/>
+        </c:if>
+        <c:if test="${not calculated}">
+            <p><c:out value="${payMessage}"/></p>
         </c:if>
     </form>
 </div>
