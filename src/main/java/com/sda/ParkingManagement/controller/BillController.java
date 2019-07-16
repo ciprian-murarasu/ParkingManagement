@@ -31,6 +31,9 @@ public class BillController {
                 model.addAttribute("calculated", true);
                 model.addAttribute("price", price);
                 model.addAttribute("code", code);
+                ticketService.payTicket(code);
+                model.addAttribute("payed", true);
+                model.addAttribute("payMessage", "Ticket payed. Now you can exit");
             } catch (Exception e) {
                 model.addAttribute("calculateMessage", "Invalid code. Try again");
             }
@@ -38,13 +41,11 @@ public class BillController {
         return "index";
     }
 
-    @PostMapping(value = "/pay", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public String payTicket(TicketDto ticketDto, Model model) {
-        String code = ticketDto.getCode();
-        ticketService.payTicket(code);
-        model.addAttribute("payed", true);
-        model.addAttribute("payMessage", "Ticket payed. Now you can exit");
-        return "index";
-    }
+//    @PostMapping(value = "/pay", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+//    public String payTicket(TicketDto ticketDto, Model model) {
+//        String code = ticketDto.getCode();
+//
+//        return "index";
+//    }
 
 }

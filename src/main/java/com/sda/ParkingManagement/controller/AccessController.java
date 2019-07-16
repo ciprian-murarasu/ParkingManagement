@@ -3,6 +3,7 @@ package com.sda.ParkingManagement.controller;
 import com.sda.ParkingManagement.dto.AccessDto;
 import com.sda.ParkingManagement.dto.TicketDto;
 import com.sda.ParkingManagement.model.Subscription;
+import com.sda.ParkingManagement.model.Ticket;
 import com.sda.ParkingManagement.service.SubscriptionService;
 import com.sda.ParkingManagement.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 
 @Controller
-@RequestMapping(value = "/access")
+//@RequestMapping(value = "/")
 public class AccessController {
     private TicketService ticketService;
     private SubscriptionService subscriptionService;
@@ -28,7 +29,7 @@ public class AccessController {
         this.subscriptionService = subscriptionService;
     }
 
-    @PostMapping(consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @PostMapping(value = "/access", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public String accessParking(AccessDto accessDto, Model model) {
         String code = accessDto.getCode();
         if (StringUtils.isEmpty(code)) {
@@ -51,4 +52,28 @@ public class AccessController {
         return "index";
     }
 
+    @PostMapping(value = "/exit", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public String exitParking(AccessDto accessDto, Model model) {
+        String code = accessDto.getCode();
+        if (StringUtils.isEmpty(code)) {
+            model.addAttribute("exitMessage", "Please enter a code");
+        } else {
+            boolean isValid = true;
+            if (code.startsWith("T")) {
+                Ticket ticket = ticketService.getByCode(code);
+                if (ticket == null) {
+                    isValid = false;
+                }
+            } else if (code.startsWith("A")) {
+                Subscription subscription = subscriptionService.getByCode(code);
+                if (subscription == null) {
+                    isValid = false;
+                }
+            } else isValid = false;
+            if (!isValid) {
+                model.addAttribute("exitMessage", "Please enter a code");
+            }
+        }
+        return "index";
+    }
 }
