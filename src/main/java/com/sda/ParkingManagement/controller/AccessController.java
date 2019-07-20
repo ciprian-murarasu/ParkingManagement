@@ -55,23 +55,32 @@ public class AccessController {
     @PostMapping(value = "/exit", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public String exitParking(AccessDto accessDto, Model model) {
         String code = accessDto.getCode();
+        boolean isValid = false;
+        model.addAttribute("isValid", isValid);
         if (StringUtils.isEmpty(code)) {
             model.addAttribute("exitMessage", "Please enter a code");
         } else {
-            boolean isValid = true;
+            isValid = true;
             if (code.startsWith("T")) {
                 Ticket ticket = ticketService.getByCode(code);
                 if (ticket == null) {
                     isValid = false;
+                } else if (ticket.getExitDate() != null) {
+                    model.addAttribute("exitMessage", "Ticket code already used for exiting");
                 }
             } else if (code.startsWith("A")) {
                 Subscription subscription = subscriptionService.getByCode(code);
                 if (subscription == null) {
                     isValid = false;
+                } else {
+                    Timestamp currentDate = new Timestamp(new Date().getTime());
+                    if (subscription.getEndDate().compareTo(currentDate) < 0) {
+                        model.addAttribute("exitMessage", "Subscription expired. Please renew subscription");
+                    }
                 }
             } else isValid = false;
             if (!isValid) {
-                model.addAttribute("exitMessage", "Please enter a code");
+                model.addAttribute("exitMessage", "Invalid code. Try again");
             }
         }
         return "index";
