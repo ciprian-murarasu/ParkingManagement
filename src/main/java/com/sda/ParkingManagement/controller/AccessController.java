@@ -55,18 +55,18 @@ public class AccessController {
     @PostMapping(value = "/exit", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public String exitParking(AccessDto accessDto, Model model) {
         String code = accessDto.getCode();
-        boolean isValid = false;
         if (StringUtils.isEmpty(code)) {
             model.addAttribute("exitMessage", "Please enter a code");
         } else {
-            isValid = true;
+            boolean isValid = true;
+            boolean isExpired = false;
             if (code.startsWith("T")) {
                 Ticket ticket = ticketService.getByCode(code);
                 if (ticket == null) {
                     isValid = false;
                 } else if (ticket.getExitDate() != null) {
+                    isExpired = true;
                     model.addAttribute("exitMessage", "Ticket code already used for exiting");
-                    model.addAttribute("isExpired", true);
                 }
             } else if (code.startsWith("A")) {
                 Subscription subscription = subscriptionService.getByCode(code);
@@ -75,23 +75,18 @@ public class AccessController {
                 } else {
                     Timestamp currentDate = new Timestamp(new Date().getTime());
                     if (subscription.getEndDate().compareTo(currentDate) < 0) {
+                        isExpired = true;
                         model.addAttribute("exitMessage", "Subscription expired. Please renew subscription");
-                        model.addAttribute("isExpired", true);
-                    }
-                    else if (subscription.getEndDate().compareTo(currentDate) != 0) {
-                        model.addAttribute("exitMessage", "Goodbye");
-                        model.addAttribute("isExpired", true);
                     }
                 }
             } else isValid = false;
-            if (!isValid) {
+            if (!isValid && !isExpired) {
                 model.addAttribute("exitMessage", "Invalid code. Try again");
             }
+            if (isValid && !isExpired) {
+                model.addAttribute("exitMessage", "Goodbye");
+            }
         }
-//        if (isValid) {
-//            model.addAttribute("exitMessage", "Goodbye");
-//        }
-        model.addAttribute("isValid", isValid);
         return "index";
     }
 }

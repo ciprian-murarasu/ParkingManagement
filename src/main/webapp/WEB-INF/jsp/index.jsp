@@ -31,9 +31,7 @@
     <form action="${pageContext.request.contextPath}/exit" method="post">
         <label>Enter the code: <input type="text" name="code" size="9" maxlength="10"/></label>
         <input type="submit" value="Exit"/>
-        <c:if test="${not isValid or isExpired}">
             <p><c:out value="${exitMessage}"/></p>
-        </c:if>
     </form>
 </div>
 <br>
