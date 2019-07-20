@@ -67,6 +67,7 @@ public class AccessController {
                     isValid = false;
                 } else if (ticket.getExitDate() != null) {
                     model.addAttribute("exitMessage", "Ticket code already used for exiting");
+                    isValid = false;
                 }
             } else if (code.startsWith("A")) {
                 Subscription subscription = subscriptionService.getByCode(code);
@@ -76,12 +77,13 @@ public class AccessController {
                     Timestamp currentDate = new Timestamp(new Date().getTime());
                     if (subscription.getEndDate().compareTo(currentDate) < 0) {
                         model.addAttribute("exitMessage", "Subscription expired. Please renew subscription");
+                        isValid = false;
                     }
                 }
             } else isValid = false;
-            if (!isValid) {
-                model.addAttribute("exitMessage", "Invalid code. Try again");
-            }
+        }
+        if (!isValid) {
+            model.addAttribute("exitMessage", "Invalid code. Try again");
         }
         return "index";
     }
