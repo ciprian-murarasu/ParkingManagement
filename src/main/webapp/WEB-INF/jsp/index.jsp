@@ -29,11 +29,11 @@
 <div>
     <h3>Exit the parking</h3>
     <form action="${pageContext.request.contextPath}/exit" method="post">
-        <label>Enter the code: <input type="text" size="9" maxlength="10"/></label>
-        <c:if test="${not isValid}">
+        <label>Enter the code: <input type="text" name="code" size="9" maxlength="10"/></label>
+        <input type="submit" value="Exit"/>
+        <c:if test="${not isValid or isExpired}">
             <p><c:out value="${exitMessage}"/></p>
         </c:if>
-        <input type="submit" value="Exit"/>
     </form>
 </div>
 <br>

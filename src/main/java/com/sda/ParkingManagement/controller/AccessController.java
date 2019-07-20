@@ -56,7 +56,6 @@ public class AccessController {
     public String exitParking(AccessDto accessDto, Model model) {
         String code = accessDto.getCode();
         boolean isValid = false;
-        model.addAttribute("isValid", isValid);
         if (StringUtils.isEmpty(code)) {
             model.addAttribute("exitMessage", "Please enter a code");
         } else {
@@ -67,7 +66,7 @@ public class AccessController {
                     isValid = false;
                 } else if (ticket.getExitDate() != null) {
                     model.addAttribute("exitMessage", "Ticket code already used for exiting");
-                    isValid = false;
+                    model.addAttribute("isExpired", true);
                 }
             } else if (code.startsWith("A")) {
                 Subscription subscription = subscriptionService.getByCode(code);
@@ -77,14 +76,18 @@ public class AccessController {
                     Timestamp currentDate = new Timestamp(new Date().getTime());
                     if (subscription.getEndDate().compareTo(currentDate) < 0) {
                         model.addAttribute("exitMessage", "Subscription expired. Please renew subscription");
-                        isValid = false;
+                        model.addAttribute("isExpired", true);
                     }
                 }
             } else isValid = false;
+            if (!isValid) {
+                model.addAttribute("exitMessage", "Invalid code. Try again");
+            }
         }
-        if (!isValid) {
-            model.addAttribute("exitMessage", "Invalid code. Try again");
+        if (isValid) {
+            model.addAttribute("exitMessage", "Goodbye");
         }
+        model.addAttribute("isValid", isValid);
         return "index";
     }
 }

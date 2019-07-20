@@ -11,12 +11,12 @@ public class ExitService {
     private SubscriptionRepository subscriptionRepository;
 
     @Autowired
-    public ExitService(TicketRepository ticketRepository, SubscriptionRepository subscriptionRepository){
+    public ExitService(TicketRepository ticketRepository, SubscriptionRepository subscriptionRepository) {
         this.ticketRepository = ticketRepository;
         this.subscriptionRepository = subscriptionRepository;
     }
 
-    public void exit(){
+    public void exit() {
 
     }
 }
