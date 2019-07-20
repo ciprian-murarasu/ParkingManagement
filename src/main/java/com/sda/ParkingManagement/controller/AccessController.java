@@ -78,15 +78,19 @@ public class AccessController {
                         model.addAttribute("exitMessage", "Subscription expired. Please renew subscription");
                         model.addAttribute("isExpired", true);
                     }
+                    else if (subscription.getEndDate().compareTo(currentDate) != 0) {
+                        model.addAttribute("exitMessage", "Goodbye");
+                        model.addAttribute("isExpired", true);
+                    }
                 }
             } else isValid = false;
             if (!isValid) {
                 model.addAttribute("exitMessage", "Invalid code. Try again");
             }
         }
-        if (isValid) {
-            model.addAttribute("exitMessage", "Goodbye");
-        }
+//        if (isValid) {
+//            model.addAttribute("exitMessage", "Goodbye");
+//        }
         model.addAttribute("isValid", isValid);
         return "index";
     }
