@@ -20,24 +20,30 @@ public class BillController {
         this.ticketService = ticketService;
     }
 
-    @PostMapping(consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @PostMapping(value = "/pay",
+            consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public String calculatePrice(TicketDto ticketDto, Model model) {
         String code = ticketDto.getCode();
         if (StringUtils.isEmpty(code)) {
-            model.addAttribute("calculateMessage", "Please enter a ticket code");
-        } else {
-            try {
-                Integer price = ticketService.calculatePrice(code);
-                model.addAttribute("calculated", true);
-                model.addAttribute("price", price);
-                model.addAttribute("code", code);
+            model.addAttribute("errorMessage", "Please enter a ticket code");
+            return "index";
+        }
+
+        try {
+            if(ticketDto.isCalculated()) {
                 ticketService.payTicket(code);
                 model.addAttribute("payed", true);
                 model.addAttribute("payMessage", "Ticket payed. Now you can exit");
-            } catch (Exception e) {
-                model.addAttribute("calculateMessage", "Invalid code. Try again");
+            } else {
+                Integer price = ticketService.calculatePrice(code);
+                model.addAttribute("calculatedResponse", true);
+                model.addAttribute("price", price);
+                model.addAttribute("code", code);
             }
+        } catch (Exception e) {
+            model.addAttribute("errorMessage", "Invalid code. Try again");
         }
+
         return "index";
     }
 
