@@ -12,13 +12,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.sql.Timestamp;
 import java.util.Date;
 
 @Controller
-//@RequestMapping(value = "/")
 public class AccessController {
     private TicketService ticketService;
     private SubscriptionService subscriptionService;

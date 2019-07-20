@@ -30,7 +30,7 @@ public class BillController {
         }
 
         try {
-            if(ticketDto.isCalculated()) {
+            if (ticketDto.isCalculated()) {
                 ticketService.payTicket(code);
                 model.addAttribute("payed", true);
                 model.addAttribute("payMessage", "Ticket payed. Now you can exit");
@@ -43,15 +43,6 @@ public class BillController {
         } catch (Exception e) {
             model.addAttribute("errorMessage", "Invalid code. Try again");
         }
-
         return "index";
     }
-
-//    @PostMapping(value = "/pay", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-//    public String payTicket(TicketDto ticketDto, Model model) {
-//        String code = ticketDto.getCode();
-//
-//        return "index";
-//    }
-
 }
