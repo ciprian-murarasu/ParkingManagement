@@ -71,4 +71,13 @@ public class TicketService {
         ticket.setPayedAmount(calculatePrice(code));
         ticketRepository.save(ticket);
     }
+
+    public void exit(String code) {
+        Ticket ticket = getByCode(code);
+        Timestamp currentDate = new Timestamp(new Date().getTime());
+        if (ticket.getExitDate() != null && (int) ((currentDate.getTime() - ticket.getExitDate().getTime()) / (1000 * 60)) <= 15) {
+            ticket.setExitDate(currentDate);
+            ticketRepository.save(ticket);
+        }
+    }
 }

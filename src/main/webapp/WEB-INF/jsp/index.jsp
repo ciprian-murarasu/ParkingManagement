@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8"/>
     <title>Welcome</title>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/index.css"/>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="/resources/demos/style.css">
 
@@ -14,10 +14,11 @@
 </head>
 <body>
 <h1>Welcome</h1>
+<c:set var="publicContextPath" value="${pageContext.request.contextPath}/public"/>
 
 <div>
     <h3>Enter the parking</h3>
-    <form action="${pageContext.request.contextPath}/access" method="post">
+    <form action="${publicContextPath}/access" method="post">
         <label>Enter the code: <input type="text" name="code" size="9" maxlength="10"/></label>
         <input type="submit" value="Access"/>
     </form>
@@ -28,7 +29,7 @@
 </div>
 <div>
     <h3>Exit the parking</h3>
-    <form action="${pageContext.request.contextPath}/exit" method="post">
+    <form action="${publicContextPath}/exit" method="post">
         <label>Enter the code: <input type="text" name="code" size="9" maxlength="10"/></label>
         <input type="submit" value="Exit"/>
             <p><c:out value="${exitMessage}"/></p>
@@ -37,7 +38,7 @@
 <br>
 <div>
     <h3>Pay bill</h3>
-    <form action="${pageContext.request.contextPath}/tickets/pay" method="post">
+    <form action="${publicContextPath}/tickets/pay" method="post">
         <input type="hidden" name="calculated" value='<c:out value="${calculatedResponse}"/>'/>
         <label>Enter the code: <input type="text" name="code" size="9" maxlength="10" value="<c:out value='${code}'/>"/></label>
         <button>Calculate fee</button>
@@ -55,7 +56,7 @@
 </div>
 <div>
     <h3>Buy subscription</h3>
-    <form action="${pageContext.request.contextPath}/subscriptions" method="post">
+    <form action="${publicContextPath}/subscriptions" method="post">
         <label for="from">Start date</label>
         <input type="text" size="9" maxlength="10" id="from" name="from">
         <label for="to">End date</label>

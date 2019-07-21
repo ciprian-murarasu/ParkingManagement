@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping(value = "/tickets")
+@RequestMapping(value = "/public/tickets")
 public class BillController {
     private TicketService ticketService;
 
@@ -28,7 +28,6 @@ public class BillController {
             model.addAttribute("errorMessage", "Please enter a ticket code");
             return "index";
         }
-
         try {
             if (ticketDto.isCalculated()) {
                 ticketService.payTicket(code);

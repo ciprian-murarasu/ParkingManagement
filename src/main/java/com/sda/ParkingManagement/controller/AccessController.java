@@ -12,11 +12,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.sql.Timestamp;
 import java.util.Date;
 
 @Controller
+@RequestMapping(value = "/public")
 public class AccessController {
     private TicketService ticketService;
     private SubscriptionService subscriptionService;
@@ -65,6 +67,8 @@ public class AccessController {
                 } else if (ticket.getExitDate() != null) {
                     isExpired = true;
                     model.addAttribute("exitMessage", "Ticket code already used for exiting");
+                } else {
+                    ticketService.exit(code);
                 }
             } else if (code.startsWith("A")) {
                 Subscription subscription = subscriptionService.getByCode(code);
